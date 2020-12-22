@@ -36,3 +36,11 @@ Alternatively you may also run the notebook from your terminal:
 ```
 jupyter nbconvert --excecute model.ipynb 
 ```
+
+# Scenarios
+
+Different weather/wind years have been selected: 
+
+* AVG: 2006
+* LOW: 2010
+* High: 2002
