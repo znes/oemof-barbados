@@ -55,11 +55,6 @@ networkx==2.4
 nose==1.3.7
 notebook==6.1.4
 numpy==1.17.5
-oemof==0.3.2
-oemof.network==0.4.0rc0
-oemof.solph==0.4.1
--e git+git@github.com:oemof/oemof-tabular.git@cb1ce4d508c78e25ff903d864eb7cdf49e119ac9#egg=oemof.tabular
-oemof.tools==0.4.0
 openpyxl==3.0.3
 packaging==20.4
 pandas==1.0.4
