@@ -58,6 +58,8 @@ scenarios += ["REF"] + ["REF-" + name for name in ["100"]]
 scenarios += ["LOP"] + ["LOP-" + name for name in ["100"]]
 scenarios += ["HRC"] + ["HRC-" + name for name in ["100"]]
 scenarios += ["NPHS"] + ["NPHS-" + name for name in ["100"]]
+scenarios += ["HCD2"] + ["HCD2-" + name for name in ["100"]]
+scenarios += ["EVCC"] + ["EVCC-" + name for name in ["100"]]
 
 
 bus = "BB-electricity"
@@ -162,7 +164,7 @@ lgd = ax.legend(
     list(lgd.keys()),
     list(lgd.values()),
     loc="lower left",
-    bbox_to_anchor=(0.1, -0.65),
+    bbox_to_anchor=(0.1, -0.75),
     shadow=False,
     frameon=False,
     ncol=4,
@@ -218,7 +220,13 @@ for dir in os.listdir(path):
     temp["battery-cos"] = temp["lithium-battery"].clip(upper=0)
     temp["battery"] = temp["lithium-battery"].clip(lower=0)
     temp["el-load"] = temp["el-load"] * -1
-    temp["cruise-load"] = temp["cruise-load"] * -1
+    if "cruise-load-1" in temp.columns:
+        cruiseload  = "cruise-load-1"
+    elif "cruise-load" in temp.columns:
+        cruiseload  = "cruise-load"
+    else:
+        cruiseload = "cruise-load-2"
+    temp[cruiseload] = temp[cruiseload] * -1
     temp["ev-load"] = temp["ev-load"] * -1
     temp["el-excess"] = temp["el-excess"] * -1
     temp = temp.sum()
@@ -388,7 +396,8 @@ e = energy.dropna()
 e.rename(
     index={
         "el-load": "demand",
-        "cruise-load": "cruise-demand",
+        "cruise-load-1": "cruise-demand",
+        "cruise-load-2": "cruise-demand",
         "ev-load": "ev-demand",
         "el-excess": "excess",
     },
