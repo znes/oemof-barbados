@@ -53,9 +53,9 @@ ax.set_ylabel("Demand in MW")
 ax.grid(linestyle="--", lw=0.2)
 lgd = ax.legend(
     list(lgd.keys()),
-    ["el-dmand", "ev-demand", "cruise-demand", "aggregated-demand"],
+    ["el-demand", "evcc-demand", "cruise-demand", "aggregated-demand"],
     loc="lower left",
-    bbox_to_anchor=(0.1, -0.45),
+    bbox_to_anchor=(0.1, -0.35),
     ncol=2,
     borderaxespad=0,
     frameon=False,
@@ -67,6 +67,7 @@ inset = inset_axes(ax,
                     height=1, # height : 1 inch
                     loc=1)
 abs_profiles.iloc[:,2].resample("D").mean().plot(ax=inset, color="skyblue")
+inset.set_title("Daily average", backgroundcolor='w')
 inset.set_ylabel("Demand in MW.", backgroundcolor='w')
 inset.set_xlabel("Day of year", backgroundcolor='w')
 inset.set_xticklabels([""], backgroundcolor='w')

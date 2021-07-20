@@ -59,7 +59,7 @@ scenarios += ["LOP"] + ["LOP-" + name for name in ["100"]]
 scenarios += ["HRC"] + ["HRC-" + name for name in ["100"]]
 scenarios += ["NPHS"] + ["NPHS-" + name for name in ["100"]]
 scenarios += ["HCD2"] + ["HCD2-" + name for name in ["100"]]
-scenarios += ["EVCC"] + ["EVCC-" + name for name in ["100"]]
+scenarios += ["EVUC"] + ["EVUC-" + name for name in ["100"]]
 
 
 bus = "BB-electricity"
