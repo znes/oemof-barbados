@@ -6,7 +6,7 @@ from scipy import interpolate
 
 # some processing stuff
 df = pd.read_excel(
-    "data/cruise-demand.xlsx",
+    "data/cruise-arrivals.xlsx",
     dtype= {"YEAR":int, "ARRIVED DATE": str, "TIME": str, "HOURS": str})
 df = df[df["Year"] == 2018]
 
@@ -29,9 +29,12 @@ for _, row in df.iterrows():
 # concat, resample and aggregated values,
 demand_agg = pd.concat(stays.values(), axis=0).sort_index()
 demand_agg_sum = demand_agg.resample("H").sum()
-
+demand_agg_sum.sum()
 # fix missing indices and fillna with 0
 demand_agg_sum = demand_agg_sum.reindex(pd.date_range(start="2018", periods=8760, freq="H")).fillna(0)["demand"]
+
+cruise_profile = demand_agg_sum / demand_agg_sum.sum()
+cruise_profile.to_csv("data/cruise_ship_profile.csv")
 
 # plot to see how it looks :-)
 ax = demand_agg_sum.plot()
