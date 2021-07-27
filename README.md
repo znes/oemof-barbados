@@ -37,9 +37,12 @@ Alternatively you may also run the notebook from your terminal:
 jupyter nbconvert --excecute model.ipynb
 ```
 
-# Scenario Assumption
+# Scenario Assumptions
 
 For the weather data zone1 has been used to illustrate the general pattern (s. `scripts/wind-data-analysis`). Within the model zone 4 has been used as it is the average with
 regard to production. The timeindex is local time, therefore, the last four hours
 of wind are missing as it has been generated in Barbadian time. These 4 values
-haven been add the way pandas ffill() method works. 
+haven been add the way pandas ffill() method works.
+
+The weather year 2006 has been used as an average wind and solar year. The
+demand profiles are all generic profiles that do not related to a specific year.
