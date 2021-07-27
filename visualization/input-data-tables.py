@@ -36,6 +36,7 @@ tech.to_latex(
 )
 load = pd.read_excel("scenarios/REF.xls", sheet_name="load", index_col=0)
 df = pd.read_excel("scenarios/REF.xls", sheet_name="profiles", index_col=0, parse_dates=True)
+
 profiles= df.iloc[:, 0:3]
 amount = load["amount"].values
 abs_profiles = profiles.multiply(amount)
@@ -69,7 +70,7 @@ inset = inset_axes(ax,
 abs_profiles.iloc[:,2].plot(ax=inset, color="skyblue")
 inset.set_title("Cruise Ships", backgroundcolor='w')
 inset.set_ylabel("Demand in MW.", backgroundcolor='w')
-inset.set_xlabel("Day of year", backgroundcolor='w')
+inset.set_xlabel("Hour of year", backgroundcolor='w')
 inset.set_xticklabels([""], backgroundcolor='w')
 
 plt.savefig(

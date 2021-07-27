@@ -54,11 +54,9 @@ scenarios = ["SQ"] + ["SQ-" + name for name in ["100"]]
 scenarios += ["HD"] + ["HD-" + name for name in ["100"]]
 scenarios += ["RB"] + ["RB-" + name for name in ["100"]]
 scenarios += ["REF"] + ["REF-" + name for name in ["100"]]
-#scenarios += ["RW"] + ["RW-" + name for name in ["100"]]
 scenarios += ["LOP"] + ["LOP-" + name for name in ["100"]]
 scenarios += ["HRC"] + ["HRC-" + name for name in ["100"]]
 scenarios += ["NPHS"] + ["NPHS-" + name for name in ["100"]]
-scenarios += ["HCD2"] + ["HCD2-" + name for name in ["100"]]
 scenarios += ["EVUC"] + ["EVUC-" + name for name in ["100"]]
 
 
@@ -174,7 +172,7 @@ plt.savefig(
     bbox_extra_artists=(lgd,),
     bbox_inches="tight",
 )
-_df.loc[_df.index.intersection(order)].reindex(order).T.to_latex(
+_df.set_index(["Tech", "Scenario"]).unstack().T.droplevel(0).to_latex(
     caption="Installed capacities in MW.",
     label="tab:installed_capacities",
     float_format="{:0.2f}".format,
@@ -434,7 +432,7 @@ re_share.reindex(select).multiply(100).plot(
     ax=ax2,
 )
 ax2.set_ylim(0, 100)
-ax2.set_ylabel("RE share in %n")
+ax2.set_ylabel("RE share in %")
 lines2, labels2 = ax2.get_legend_handles_labels()
 # lgd = ax.legend(list(lgd.keys()) + lines2, list(lgd.values()) + labels2, ...)
 lgd = ax.legend(
@@ -565,3 +563,6 @@ plt.savefig(
     # bbox_extra_artists=(lgd,),
     bbox_inches="tight",
 )
+
+energy.loc["el-load"]["HD"] / (energy.loc["el-load"]["REF"])
+investment_cost.sum()/1e6 - investment_cost["REF"].sum()/1e6
