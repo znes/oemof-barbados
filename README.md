@@ -1,15 +1,15 @@
 # oemof-barbados
 
-Energy system model for Barbados based on the Open Energy Modelling Framework (oemof). 
+Energy system model for Barbados based on the Open Energy Modelling Framework (oemof).
 
 
-## Installation 
+## Installation
 
-To install create an virtualenv, activate the env and install the requirements: 
+To install create an virtualenv, activate the env and install the requirements:
 
 ```
 virtualenv -p python3 oemof-barbados-env
-source oemof-barbados-env/bin/activate 
+source oemof-barbados-env/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -20,27 +20,26 @@ Then run make sure that the kernel can be selected inside the Jupyter-notebook:
 python -m ipykernel install --user --name oemof-barbabos-env
 ```
 
-## Usage 
+## Usage
 
-To use the model simply start the jupyter notebook: 
-
-```
-jupyter-notebook 
-```
-
-Then open the `model.ipynb` file. Inside this file you can specifiy the scenario an run the script 
-to compute results. Also you may adapt the path for results and other things. 
-
-Alternatively you may also run the notebook from your terminal: 
+To use the model simply start the jupyter notebook:
 
 ```
-jupyter nbconvert --excecute model.ipynb 
+jupyter-notebook
 ```
 
-# Scenarios
+Then open the `model.ipynb` file. Inside this file you can specifiy the scenario an run the script
+to compute results. Also you may adapt the path for results and other things.
 
-Different weather/wind years have been selected: 
+Alternatively you may also run the notebook from your terminal:
 
-* AVG: 2006
-* LOW: 2010
-* High: 2002
+```
+jupyter nbconvert --excecute model.ipynb
+```
+
+# Scenario Assumption
+
+For the weather data zone1 has been used to illustrate the general pattern (s. `scripts/wind-data-analysis`). Within the model zone 4 has been used as it is the average with
+regard to production. The timeindex is local time, therefore, the last four hours
+of wind are missing as it has been generated in Barbadian time. These 4 values
+haven been add the way pandas ffill() method works. 
