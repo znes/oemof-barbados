@@ -11,7 +11,7 @@ carrier.loc[(["hfo", "diesel", "bagasse", "waste"], "base"), :].round(2).to_late
 )
 
 tech = pd.read_excel("scenarios/carrier-technology.xls", sheet_name="technology-data", index_col=[0,1,2])
-tech =tech.loc[(["wind", "solar", "bagasse", "hfo", "waste", "lithium", "hydro"], slice(None), "base")]
+tech =tech.loc[(["wind", "solar", "bagasse", "hfo", "waste", "lithium", "hydro"], slice(None), "reference")]
 tech[["fom", "avf", "efficiency"]] = tech[["fom", "avf", "efficiency"]] * 100
 tech = tech.round({'fom': 1, "avf": 1, "efficiency": 1})
 tech = tech.drop(["source", "avf", "storage_capex", "name"], axis=1)

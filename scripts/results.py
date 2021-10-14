@@ -1,9 +1,9 @@
 import os
-
 import pandas as pd
 import numpy as np
 
 # from cydets.algorithm import detect_cycles
+
 from oemof.tools.economics import annuity
 import matplotlib.pyplot as plt
 from matplotlib import colors
@@ -54,11 +54,12 @@ scenarios = ["SQ"] + ["SQ-" + name for name in ["100"]]
 scenarios += ["HD"] + ["HD-" + name for name in ["100"]]
 scenarios += ["RB"] + ["RB-" + name for name in ["100"]]
 scenarios += ["REF"] + ["REF-" + name for name in ["100"]]
-scenarios += ["LOP"] + ["LOP-" + name for name in ["100"]]
-scenarios += ["HRC"] + ["HRC-" + name for name in ["100"]]
 scenarios += ["NPHS"] + ["NPHS-" + name for name in ["100"]]
 scenarios += ["EVUC"] + ["EVUC-" + name for name in ["100"]]
-
+scenarios += ["LOP"] + ["LOP-" + name for name in ["100"]]
+scenarios += ["LRC"] + ["LRC-" + name for name in ["100"]]
+scenarios += ["MRC"] + ["MRC-" + name for name in ["100"]]
+scenarios += ["HBC"] + ["HBC-" + name for name in ["100"]]
 
 bus = "BB-electricity"
 all_capacities = pd.DataFrame()
@@ -99,6 +100,12 @@ re_share = (
     / energy.loc[[l for l in energy.index if "load" in l]].sum()
 ).sort_index()
 
+re_share.to_latex(
+    caption="Renewable energy share in different scenarios.",
+    label="tab:re_share",
+    float_format="{:0.2f}".format,
+    buf="visualization/tables/re_share.tex",
+)
 # -capacity plot -----------------------------------------------------------
 _df = all_capacities.copy()
 order = [
@@ -301,7 +308,7 @@ plt.savefig(
 )
 investment_cost.T.divide(1e6).to_latex(
     caption="Annualised investment cost per technology for all scenarios in Mio. BBD.",
-    label="tab:lcoe",
+    label="tab:investment_cost",
     column_format="lp{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}",
     float_format="{:0.2f}".format,
     buf="visualization/tables/investment_cost.tex",
@@ -565,4 +572,11 @@ plt.savefig(
 )
 
 energy.loc["el-load"]["HD"] / (energy.loc["el-load"]["REF"])
-investment_cost.sum()/1e6 - investment_cost["REF"].sum()/1e6
+investment_cost.sum()/1e6 - investment_cost["REF-100"].sum()/1e6
+
+(investment_cost.sum()/1e6).to_latex(
+    caption="Aggregated investment cost in Mio. BBD per year.",
+    label="tab:agg_invest_cost",
+    float_format="{:0.2f}".format,
+    buf="visualization/tables/agg_investment_cost.tex",
+)
